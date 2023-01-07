@@ -4,9 +4,10 @@ import './css/general.css';
 
 
 function App() {
+
   return (
     <div className="App">
-      <div className="top ">
+      <div className="top">
         <div className="menu top_block">
           <div className="timer">
             3:00
