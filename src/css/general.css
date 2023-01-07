@@ -1,0 +1,19 @@
+.general{
+    justify-content: space-between;
+}
+
+.current_aveIndex{
+    width: calc(55vh - 7.5px);
+    background-color: rgb(142, 112, 72);
+}
+
+.accumulated_aveIndex{
+    /* width: calc(100% / 3); */
+    width: auto;
+    background-color: rgb(107, 106, 104);
+}
+
+.messages{
+    width: calc(100% / 3);
+    background-color: rgb(94, 58, 203);
+}
