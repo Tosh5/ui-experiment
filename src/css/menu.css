@@ -51,3 +51,15 @@
     background-color: gray;
     color: aliceblue;
 }
+
+.menu > button {
+    /* width: px; */
+    /* height: 40px; */
+    /* padding-: 10px; */
+    padding: 5px 25px;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-top: 10px;
+    background-color: rgb(24, 175, 13);
+    color: aliceblue;
+}

@@ -11,9 +11,33 @@
     /* width: calc(100% / 3); */
     width: auto;
     background-color: rgb(107, 106, 104);
+    text-align: center;
+}
+
+.totalIndex{
+    font-size: 100px;
 }
 
 .messages{
     width: calc(100% / 3);
     background-color: rgb(94, 58, 203);
 }
+
+.notification{
+    bottom: 50vw;
+    font-size: 30px;
+    text-align: center;
+}
+
+.popupAnimation{
+    font-size: xx-large;
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    position: relative;
+    /* margin-top: 10px; */
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
