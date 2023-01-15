@@ -20,7 +20,7 @@ export function WordCountProvider({children}) {
 
     return (
         <WordCounter.Provider value = {value} >
-            <NegWordCounter.Provider negValue = {negValue}>
+            <NegWordCounter.Provider value = {negValue}>
                 {children}
             </NegWordCounter.Provider>
         </WordCounter.Provider>

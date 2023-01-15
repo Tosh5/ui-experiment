@@ -20,7 +20,7 @@ import Versus from './Versus';
 let notifMsg = '試合頑張ってね！'
 
 // 応援ワードが聞こえた際、一時的にtrueに。右上緑色通知のアニメーションが発火
-let wordHeard = false
+// let negWordHeard = false
 let negWordHeard = false
 
 // サーバとの通信設定。.envはlocalと本番でURL切り替わる。
@@ -107,9 +107,9 @@ function Support() {
       const cheerNotify = async () =>{
         updateIndex(50)
         notifMsg = 'ナイス声援！ +50'
-        wordHeard = true
+        negWordHeard = true
         await new Promise(s => setTimeout(s, 2000))
-        wordHeard = false
+        negWordHeard = false
       }
       cheerNotify()
     }else{
