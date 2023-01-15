@@ -11,8 +11,9 @@ import GestureRecog from './GestureRecog';
 import { useState , useEffect, useRef, useContext } from 'react';
 import Meter from './Meter';
 import { WordCounter } from './ParamsProvider';
-import {motion, useAnimation} from 'framer-motion'
-import { BrowserRouter, Route, Switch, Link, useNavigate} from 'react-router-dom';
+import {motion} from 'framer-motion'
+import { useNavigate} from 'react-router-dom';
+import Versus from './Versus';
 
 
 // 右上に緑色で現れる通知文
@@ -92,29 +93,14 @@ function Support() {
 	}, [])
 
   const goBackHome = () =>{
-    const res = window.confirm('応援をやめてしまって良いのですか？')
-    if( res == true ) {
-      navigate('/')
-    }
-    else {
-    }
+    navigate('/')
+    // const res = window.confirm('応援をやめてしまって良いのですか？')
+    // if( res == true ) {
+    //   navigate('/')
+    // }
+    // else {
+    // }
   }
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if(myIndex > 0){
-  //       console.log('over 0')
-  //       console.log(typeof(myIndex))
-  //     }else{
-  //       console.log('set to 0')
-  //       setMyIndex(0)
-  //     }
-  //   }, 200);
-  //   return () => clearInterval(interval);
-  //   // アンマウント時にsetIntervalを解除してくれる
-  // }, []);
-
-
 
   // 声援を認識しmyIndexを更新ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
   useEffect(() =>{
@@ -137,10 +123,10 @@ function Support() {
  
   // asyncはナシでも動くが、僅かにasyncアリの方がサーバへの転送が早い気がする
   const sendmyindex = async (index) =>{
-    await socket.emit("send_myindex" , 'support',  index)
+    await socket.emit("send_myPosiIndex" , index)
   }
   
-  const sentStart = async (signal) =>{
+  const sendStart = async (signal) =>{
     await socket.emit("send_start" , signal)
   }
   
@@ -158,27 +144,27 @@ function Support() {
 
 
   // サーバからデータを受信した場合ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-  useEffect(() => {
-    socket.on('gene_index', function(aveIndex) {
-      setGeneIndex(aveIndex)
-    })
+  // useEffect(() => {
+  //   socket.on('gene_index', function(aveIndex) {
+  //     setGeneIndex(aveIndex)
+  //   })
     
-    socket.on('total_index', function(totalIndex){
-      setTotalIndex(totalIndex)
-    })
+  //   socket.on('total_index', function(totalIndex){
+  //     setTotalIndex(totalIndex)
+  //   })
 
-    socket.on('time_remain', function(time_remain){
-      setTimeRemain(time_remain)
-    })
+  //   socket.on('time_remain', function(time_remain){
+  //     setTimeRemain(time_remain)
+  //   })
 
     
 
-    return () => {
-      socket.off('gene_index');
-      socket.off('total_index');
-      socket.off('time_remain');
-    };
-  }, []);
+  //   return () => {
+  //     socket.off('gene_index');
+  //     socket.off('total_index');
+  //     socket.off('time_remain');
+  //   };
+  // }, []);
 
   
   // 画面表示ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -204,26 +190,12 @@ function Support() {
             <button onClick={goBackHome}>終了する</button>
           </div>
         </div>
-        <div className="general top_block">
+
+        <Versus />
+        <Notification />
+
         
-          <div className="current_aveIndex">
-            <p className="bold">総合評価</p>
-            {/* 瞬間の盛り上がり度 */}
-            <Meter index={geneIndex} score = {totalIndex}/>
-          </div>
-          
-          <div className="accumulated_aveIndex">
-            <p className="bold">累積総合評価</p>
-            {/* 全体の盛り上がり度 */}
-            <p className='totalIndex'>{totalIndex}</p>
-            実際に AveGauge を入れてみて、<br></br>サイズを調整したい。
-          </div>
-          {/* <Notification /> */}
-          <div className="messages">
-            <p className="bold">メッセージ</p>
-            <Notification />
-          </div>
-        </div>
+        
       </div>
 
       <div className="bottom ">

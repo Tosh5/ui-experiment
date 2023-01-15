@@ -11,8 +11,8 @@ import GestureRecog from './GestureRecog';
 import { useState , useEffect, useRef, useContext } from 'react';
 import Meter from './Meter';
 import { WordCounter } from './ParamsProvider';
-import {motion, useAnimation} from 'framer-motion'
-import { BrowserRouter, Route, Switch, Link, useNavigate} from 'react-router-dom';
+import {motion} from 'framer-motion'
+import { useNavigate} from 'react-router-dom';
 
 
 // 右上に緑色で現れる通知文
@@ -22,7 +22,7 @@ let notifMsg = '試合頑張ってね！'
 let wordHeard = false
 
 // サーバとの通信設定。.envはlocalと本番でURL切り替わる。
-const socket = io.connect(`${process.env.REACT_APP_SOCKET_URL}/posi`)
+const socket = io.connect(`${process.env.REACT_APP_SOCKET_URL}`)
 
 // indexBinの作成と初期化
 const binSize = 20 // indexの計算に使われるindexBinの要素数を規定
@@ -64,6 +64,9 @@ export const Notification = () => (
 function Booing() {
   // 諸々の定義ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
+  const [negIndex, setNegIndex] = useState(0)
+  const [negScore, setNegScore] = useState(0)
+
   const [myIndex, setMyIndex] = useState(0) // 自分の盛り上がり指数
   const [geneIndex, setGeneIndex] = useState(0) // 全体の盛り上がり指数  
   const [totalIndex, setTotalIndex] = useState('0') // 応援累積得点  
@@ -92,29 +95,14 @@ function Booing() {
 	}, [])
 
   const goBackHome = () =>{
-    const res = window.confirm('応援をやめてしまって良いのですか？')
-    if( res == true ) {
-      navigate('/')
-    }
-    else {
-    }
+    navigate('/')
+    // const res = window.confirm('応援をやめてしまって良いのですか？')
+    // if( res == true ) {
+    //   navigate('/')
+    // }
+    // else {
+    // }
   }
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if(myIndex > 0){
-  //       console.log('over 0')
-  //       console.log(typeof(myIndex))
-  //     }else{
-  //       console.log('set to 0')
-  //       setMyIndex(0)
-  //     }
-  //   }, 200);
-  //   return () => clearInterval(interval);
-  //   // アンマウント時にsetIntervalを解除してくれる
-  // }, []);
-
-
 
   // 声援を認識しmyIndexを更新ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
   useEffect(() =>{
@@ -137,12 +125,12 @@ function Booing() {
  
   // asyncはナシでも動くが、僅かにasyncアリの方がサーバへの転送が早い気がする
   const sendmyindex = async (index) =>{
-    await socket.emit("send_myindex" , 'support',  index)
+    await socket.emit("send_myNegIndex" , index)
   }
   
-  const sentStart = async (signal) =>{
-    await socket.emit("send_start" , signal)
-  }
+//   const sendStart = async (signal) =>{
+//     await socket.emit("send_start" , signal)
+//   }
   
   useEffect(() => {
     myIndexRef.current = myIndex
@@ -159,6 +147,15 @@ function Booing() {
 
   // サーバからデータを受信した場合ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
   useEffect(() => {
+    socket.on('neg_index', function(negIndex) {
+        console.log(`received NegIndex${negIndex}`)
+        setNegIndex(negIndex)
+    })
+
+    socket.on('neg_score', function(negScore) {
+        setNegScore(negScore)
+    })
+
     socket.on('gene_index', function(aveIndex) {
       setGeneIndex(aveIndex)
     })

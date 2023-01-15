@@ -85,7 +85,7 @@ function Admin() {
 //     await socket.emit("send_myindex" , 'support',  index)
 //   }
   
-  const sentStart = async (signal) =>{
+  const sendStart = async (signal) =>{
     await socket.emit("send_start" , signal)
   }
   
@@ -115,9 +115,7 @@ function Admin() {
     socket.on('time_remain', function(time_remain){
       setTimeRemain(time_remain)
     })
-
     
-
     return () => {
       socket.off('gene_index');
       socket.off('total_index');
@@ -142,7 +140,7 @@ function Admin() {
             <p className='small'>防御側：</p>
           </div>
 
-          <button onClick={() =>{sentStart()}}>ゲーム開始</button>
+          <button onClick={() =>{sendStart()}}>ゲーム開始</button>
 
           <div className="mode_selector">
             <p className='current_mode'>応援モード</p>
