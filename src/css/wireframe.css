@@ -33,6 +33,16 @@ body {
     margin-right: 5px;
 }
 
+.App > button{
+    font-size: 30px;
+    background-color: #179617;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 10px;
+
+}
+
 .bottom{
     /* background-color: rgb(213, 110, 139); */
     color: #fff5ee;

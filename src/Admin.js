@@ -70,6 +70,10 @@ function Admin() {
   const [timeRemain, setTimeRemain] = useState('開始前')
   const navigate = useNavigate()
 
+  const resetParams = () =>{
+    socket.emit('reset_params')
+  }
+
   
 
 
@@ -130,7 +134,7 @@ function Admin() {
     <div className="App">
       
       <div className="top">
-        <div className="menu top_block">
+        {/* <div className="menu top_block">
             <p>残り時間</p>
           <div className="timer">
             {timeRemain}
@@ -145,9 +149,9 @@ function Admin() {
 
           <div className="mode_selector">
             <p className='current_mode'>応援モード</p>
-            <button onClick={() =>{navigate('/')}}>終了する</button>
+            <button onClick={resetParams}>サーバをリセット</button>
           </div>
-        </div>
+        </div> */}
 
         <Versus />
 
@@ -190,6 +194,10 @@ function Admin() {
           <p className="bold">敵のヤジ</p>
         </div>
       </div> */}
+      <h1>管理メニュー</h1>
+
+      <button onClick={() =>{sendStart()}}>ゲーム開始</button>
+      <button onClick={resetParams}>サーバをリセット</button>
       
 
     </div>
