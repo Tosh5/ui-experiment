@@ -36,6 +36,7 @@ const VoiceRecog = () => {
     negCounts = [...negCounts,( transcript.match( /ぶー/g ) || [] ).length ]
     negCounts = [...negCounts,( transcript.match( /ブー/g ) || [] ).length ]
     negCounts = [...negCounts,( transcript.match( /ブルー/g ) || [] ).length ]
+    negCounts = [...negCounts,( transcript.match( /下手/g ) || [] ).length ]
     negCounts = [...negCounts,( transcript.match( /やい/g ) || [] ).length ]
     negCounts = [...negCounts,( transcript.match( /外せ/g ) || [] ).length ]
     negCounts = [...negCounts,( transcript.match( /外れろ/g ) || [] ).length ]
