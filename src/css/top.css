@@ -40,7 +40,7 @@
     margin: 10px;
 }
 
-.admin_button{
+.guide_button{
     padding: 5px 25px;
     border-radius: 10px;
     font-size: 20px;
@@ -50,6 +50,21 @@
     margin: 10px;
     position: absolute;
     left: 5px;
+    bottom: 5px;
+    margin: 10px;
+}
+
+.admin_button{
+    padding: 5px 25px;
+    border-radius: 10px;
+    font-size: 20px;
+    /* margin-top: 10px; */
+    color: aliceblue;
+
+    margin: 10px;
+    position: absolute;
+    /* left: 150px; */
+    right: 5px;
     bottom: 5px;
     margin: 10px;
 }

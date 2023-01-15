@@ -17,6 +17,8 @@ const Top = () => {
             <button className='button' style={{backgroundColor: '#0071BC'}} onClick={() => navigate('/neg')}>ヤジを飛ばす</button>
           </div>
         </div>
+        
+        <button className='guide_button' style={{backgroundColor: '#555555'}} onClick={() => navigate('/guide')}>トリセツ</button>
         <button className='admin_button' style={{backgroundColor: '#555555'}} onClick={() => navigate('/admin')}>管理画面</button>
 
 
