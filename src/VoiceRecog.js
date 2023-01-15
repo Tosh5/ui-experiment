@@ -15,21 +15,22 @@ const VoiceRecog = () => {
       browserSupportsSpeechRecognition
     } = useSpeechRecognition();
   
-    // var counts = []
-    // counts = [...counts,( transcript.match( /頑張れ/g ) || [] ).length ]
-    // counts = [...counts,( transcript.match( /がんばれ/g ) || [] ).length ]
-    // counts = [...counts,( transcript.match( /いけ/g ) || [] ).length ]
-    // counts = [...counts,( transcript.match( /池/g ) || [] ).length ]
-    // counts = [...counts,( transcript.match( /イケ/g ) || [] ).length ]
-    // counts = [...counts,( transcript.match( /入れろ/g ) || [] ).length ]
-    // counts = [...counts,( transcript.match( /いれろ/g ) || [] ).length ]
-    // counts = [...counts,( transcript.match( /いいぞ/g ) || [] ).length ]
+    var counts = []
+    counts = [...counts,( transcript.match( /頑張れ/g ) || [] ).length ]
+    counts = [...counts,( transcript.match( /がんばれ/g ) || [] ).length ]
+    counts = [...counts,( transcript.match( /いけ/g ) || [] ).length ]
+    counts = [...counts,( transcript.match( /池/g ) || [] ).length ]
+    counts = [...counts,( transcript.match( /イケ/g ) || [] ).length ]
+    counts = [...counts,( transcript.match( /入れろ/g ) || [] ).length ]
+    counts = [...counts,( transcript.match( /いれろ/g ) || [] ).length ]
+    counts = [...counts,( transcript.match( /いいぞ/g ) || [] ).length ]
   
-    // setWordCount(counts.reduce((sum, element) => sum + element, 0))
+    setWordCount(counts.reduce((sum, element) => sum + element, 0))
 
 
     var negCounts = []
     negCounts = [...negCounts,( transcript.match( /はずせ/g ) || [] ).length ]
+    negCounts = [...negCounts,( transcript.match( /やい/g ) || [] ).length ]
     negCounts = [...negCounts,( transcript.match( /外せ/g ) || [] ).length ]
     negCounts = [...negCounts,( transcript.match( /外れろ/g ) || [] ).length ]
     negCounts = [...negCounts,( transcript.match( /やーい/g ) || [] ).length ]

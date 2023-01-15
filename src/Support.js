@@ -21,7 +21,8 @@ let notifMsg = '試合頑張ってね！'
 
 // 応援ワードが聞こえた際、一時的にtrueに。右上緑色通知のアニメーションが発火
 // let negWordHeard = false
-let negWordHeard = false
+let wordHeard = false
+// let negWordHeard = false
 
 // サーバとの通信設定。.envはlocalと本番でURL切り替わる。
 const socket = io.connect(`${process.env.REACT_APP_SOCKET_URL}`)
@@ -40,7 +41,7 @@ export const Notification = () => (
       backgroundColor: '#03bc44', borderRadius: 15,
     }}
     animate={
-      negWordHeard ?
+      wordHeard ?
       { 
         x: [window.innerWidth * 1, 
           window.innerWidth * 0,
@@ -105,17 +106,20 @@ function Support() {
   useEffect(() =>{
     if(renderFlgRef.current) {
       const cheerNotify = async () =>{
+        // console.log('頑張れdetected')
         updateIndex(50)
         notifMsg = 'ナイス声援！ +50'
-        negWordHeard = true
+        wordHeard = true
         await new Promise(s => setTimeout(s, 2000))
-        negWordHeard = false
+        wordHeard = false
       }
       cheerNotify()
     }else{
       renderFlgRef.current = true
     }
-  },[negWordCount])
+  },[wordCount])
+
+  // console.log(`頑張れdetected ${wordCount}`)
 
 
   // サーバにデータ送信ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー

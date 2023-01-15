@@ -20,7 +20,8 @@ import Versus from './Versus';
 let notifMsg = '試合頑張ってね！'
 
 // 応援ワードが聞こえた際、一時的にtrueに。右上緑色通知のアニメーションが発火
-let wordHeard = false
+
+let negWordHeard = false
 
 // サーバとの通信設定。.envはlocalと本番でURL切り替わる。
 const socket = io.connect(`${process.env.REACT_APP_SOCKET_URL}`)
@@ -39,7 +40,7 @@ export const Notification = () => (
       backgroundColor: '#03bc44', borderRadius: 15,
     }}
     animate={
-      wordHeard ?
+      negWordHeard ?
       { 
         x: [window.innerWidth * 1, 
           window.innerWidth * 0,
@@ -69,7 +70,8 @@ function Neg() {
   const navigate = useNavigate()
 
   // wordCount系のパラメータをcontextから読み込む
-  const { wordCount, setWordCount } = useContext(WordCounter)
+  // const { wordCount, setWordCount } = useContext(WordCounter)
+  const { negWordCount, setNegWordCount } = useContext(NegWordCounter)
 
   // 初回レンダリング時に声援認識をしてしまうのを防ぐためのuseRef
   const renderFlgRef = useRef(false)
@@ -99,15 +101,17 @@ function Neg() {
       const cheerNotify = async () =>{
         updateIndex(50)
         notifMsg = 'ブーイング！ +50'
-        wordHeard = true
+        negWordHeard = true
         await new Promise(s => setTimeout(s, 2000))
-        wordHeard = false
+        negWordHeard = false
       }
       cheerNotify()
     }else{
       renderFlgRef.current = true
     }
-  },[wordCount])
+  },[negWordCount])
+
+  // console.log(`外せdetected ${negWordCount}`)
 
 
   // サーバにデータ送信ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
