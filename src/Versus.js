@@ -13,7 +13,7 @@ import { useState , useEffect, useRef, useContext } from 'react';
 import Meter from './Meter';
 import { WordCounter } from './ParamsProvider';
 import {motion} from 'framer-motion'
-import { useNavigate} from 'react-router-dom';
+import { Link, NavLink, useNavigate} from 'react-router-dom';
 
 // サーバとの通信設定。.envはlocalと本番でURL切り替わる。
 const socket = io.connect(`${process.env.REACT_APP_SOCKET_URL}`)
@@ -25,8 +25,12 @@ const Versus = () => {
     const [negIndex, setNegIndex] = useState(0)
     const [negScore, setNegScore] = useState(0)
 
-    const [timeRemain, setTimeRemain] = useState('開始前')
+    const [timeRemain, setTimeRemain] = useState('2:00')
     const navigate = useNavigate()  // ページ遷移用
+
+    const toHome = () =>{
+
+    }
 
     // サーバにデータ送信ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
  
@@ -37,7 +41,7 @@ const Versus = () => {
     useEffect(() => {
         const interval = setInterval(() => {
         sendmyindex()
-        }, 200);
+        }, 10);
         return () => clearInterval(interval);
         // アンマウント時にsetIntervalを解除してくれる
     }, []);
@@ -62,8 +66,8 @@ const Versus = () => {
             setNegScore(negScore)
         })
 
-        socket.on('time_remain', function(time_remain){
-        setTimeRemain(time_remain)
+        socket.on('time_remain', function(timeRemain){
+        setTimeRemain(timeRemain)
         })
 
         return () => {
@@ -80,21 +84,41 @@ const Versus = () => {
   return (
     <div>
         <div className="general top_block">
-            <div className="current_aveIndex">
-            <p className="bold">総合評価</p>
+            <div className="score_board red" >
+            <p className="bold red_text" onClick={() => navigate('/support')}>応援側</p>
             <Meter index={posiIndex} score = {posiScore}/>
+            </div>
+
+            <div className="accumulated_aveIndex">
+            <h1 className="title_top">サポーター対決</h1>
+            <br></br>
+            <h1>VS</h1>
+            <br></br>
+            <p>残り時間</p>
+            <div className="timer">
+                {timeRemain}
+            </div>
+            <br></br>
+            <p onClick={() => navigate('/')} 
+                style={{
+                        cursor: 'pointer',
+                        backgroundColor: 'gray',
+                        width: '7vw',
+                        textAlign: 'center',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        borderRadius: '7px'
+                        }}>Home</p>
+            
+            
+            </div>
+            
+            <div className="score_board blue">
+            <p className="bold blue_text" onClick={() => navigate('/neg')} >妨害側</p>
             <Meter index={negIndex} score = {negScore}/>
             </div>
-            
-            <div className="accumulated_aveIndex">
-            <p className="bold">累積総合評価</p>
-            <p className='totalIndex'>{posiScore}</p>
-            実際に AveGauge を入れてみて、<br></br>サイズを調整したい。
-            </div>
-            <div className="messages">
-            <p className="bold">メッセージ</p>
-            
-            </div>
+
+           
         </div>
 
   </div>

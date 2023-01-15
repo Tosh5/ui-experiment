@@ -1,18 +1,48 @@
 .general{
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: space-around;
 }
 
-.current_aveIndex{
+.score_board{
     width: calc(55vh - 7.5px);
-    background-color: rgb(142, 112, 72);
+    border-radius: 15px;
+    box-shadow: inset 0 0 15px 15px rgba(233, 233, 233, 0.346);
+}
+
+.general > .red{
+    background-color: #C1272D;
+}
+.general > .blue{
+    background-color: #0071BC;
+}
+.red_text{
+    background-color: #FF0000;
+}
+.blue_text{
+    background-color: #29ABE2;
 }
 
 .accumulated_aveIndex{
     /* width: calc(100% / 3); */
     width: auto;
-    background-color: rgb(107, 106, 104);
+    /* background-color: rgb(107, 106, 104); */
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* margin: 5vh; */
 }
+
+.accumulated_aveIndex > .bold{
+    margin-bottom: 10vh;
+}
+
+.accumulated_aveIndex > .title_top{
+    margin-bottom: 7vh;
+}
+
+/* .accumulated_aveIndex > div{
+    bottom: 10px;
+} */
 
 .totalIndex{
     font-size: 100px;

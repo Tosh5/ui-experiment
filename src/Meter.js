@@ -36,7 +36,7 @@ const Meter = (props) => {
         {(value) => (
           <CircularProgressbar
             value= {value}
-            text= {props.score}  //{`a${value}`}
+            text= {`${props.score}`}  //{`a${value}`}
             circleRatio={0.7} /* Make the circle only 0.7 of the full diameter */
             styles={{
               trail: {

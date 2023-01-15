@@ -2,21 +2,52 @@
     text-align: center;
 }
 
+.top-container{
+    text-align: center;
+    align-items: center;
+}
+
+.top-container > h1{
+    margin-top: 20vh;
+    font-size: 100px;
+}
+
+
+.selector{
+    top: 50%;
+    /* background-color: beige; */
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+.selector > p{
+    font-size: 40px;
+}
+
 .buttonContainer{
-    display: flex;
+    justify-content: center;
 }
 
 
 .button{
     padding: 5px 25px;
     border-radius: 10px;
-    font-size: 20px;
-    margin-top: 10px;
-    /* background-color: rgb(24, 175, 13); */
+    font-size: 50px;
+    /* margin-top: 10px; */
     color: aliceblue;
+    margin: 10px;
 }
 
-.admin{
+.admin_button{
+    padding: 5px 25px;
+    border-radius: 10px;
+    font-size: 20px;
+    /* margin-top: 10px; */
+    color: aliceblue;
+
+    margin: 10px;
     position: absolute;
     left: 5px;
     bottom: 5px;

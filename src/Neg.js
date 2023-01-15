@@ -62,13 +62,10 @@ export const Notification = () => (
   </motion.div>
 )
 
-function Support() {
+function Neg() {
   // 諸々の定義ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
   const [myIndex, setMyIndex] = useState(0) // 自分の盛り上がり指数
-  const [geneIndex, setGeneIndex] = useState(0) // 全体の盛り上がり指数  
-  const [totalIndex, setTotalIndex] = useState('0') // 応援累積得点  
-  const [timeRemain, setTimeRemain] = useState('開始前')
   const navigate = useNavigate()
 
   // wordCount系のパラメータをcontextから読み込む
@@ -94,12 +91,6 @@ function Support() {
 
   const goBackHome = () =>{
     navigate('/')
-    // const res = window.confirm('応援をやめてしまって良いのですか？')
-    // if( res == true ) {
-    //   navigate('/')
-    // }
-    // else {
-    // }
   }
 
   // 声援を認識しmyIndexを更新ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -107,7 +98,7 @@ function Support() {
     if(renderFlgRef.current) {
       const cheerNotify = async () =>{
         updateIndex(50)
-        notifMsg = 'ナイス声援！ +50'
+        notifMsg = 'ブーイング！ +50'
         wordHeard = true
         await new Promise(s => setTimeout(s, 2000))
         wordHeard = false
@@ -123,7 +114,7 @@ function Support() {
  
   // asyncはナシでも動くが、僅かにasyncアリの方がサーバへの転送が早い気がする
   const sendmyindex = async (index) =>{
-    await socket.emit("send_myPosiIndex" , index)
+    await socket.emit("send_myNegIndex" , index)
   }
   
   const sendStart = async (signal) =>{
@@ -141,6 +132,7 @@ function Support() {
     return () => clearInterval(interval);
     // アンマウント時にsetIntervalを解除してくれる
   }, []);
+
   
   // 画面表示ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
   return (
@@ -151,9 +143,9 @@ function Support() {
       </div>
 
       <div className="bottom ">
-        <div className="my_info im_posi bottom_block_margin">
+        <div className="my_info im_neg bottom_block_margin">
           <div className="my_left_info">
-            <p className="bold">あなたの応援</p>
+            <p className="bold">あなたのブーイング</p>
             <GestureRecog updateIndex = {updateIndex} />
           </div>
           <div className="my_right_info">
@@ -163,7 +155,7 @@ function Support() {
           </div>
           <div className="message bottom_block_margin">
             <p className="bold">メッセージ</p>
-            ゲーム開始と同時に、応援を始めてください。
+            ゲーム開始と同時に、ブーイングを始めてください。
             <Notification />
           </div>
         </div>
@@ -176,4 +168,4 @@ function Support() {
   );
 }
 
-export default Support;
+export default Neg;

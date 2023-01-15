@@ -7,15 +7,17 @@ const Top = () => {
   const navigate = useNavigate()
 
   return (
-    <div>
+    <div className='top-container'>
         <h1>玉入れ合戦</h1>
         <h3>あなたの応援が勝利を決める！</h3>
-
-        <div className="buttonContainer">
-          <button className='button' style={{backgroundColor: 'darkred'}} onClick={() => navigate('/support')}>Support画面へ</button>
-          <button className='button' style={{backgroundColor: 'darkblue'}} onClick={() => navigate('/booing')}>ブーイング画面へ</button>
+        <div className="selector">
+          <p>↓この試合を?↓</p>
+          <div className="buttonContainer">
+            <button className='button' style={{backgroundColor: '#C1272D'}} onClick={() => navigate('/support')}>応援する</button>
+            <button className='button' style={{backgroundColor: '#0071BC'}} onClick={() => navigate('/neg')}>ヤジを飛ばす</button>
+          </div>
         </div>
-        <button className='button admin' style={{backgroundColor: '#555555'}} onClick={() => navigate('/admin')}>管理画面</button>
+        <button className='admin_button' style={{backgroundColor: '#555555'}} onClick={() => navigate('/admin')}>管理画面</button>
 
 
     </div>
