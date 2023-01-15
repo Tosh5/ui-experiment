@@ -10,7 +10,7 @@ import io from "socket.io-client";
 import GestureRecog from './GestureRecog';
 import { useState , useEffect, useRef, useContext } from 'react';
 import Meter from './Meter';
-import { WordCounter } from './ParamsProvider';
+import { WordCounter, NegWordCounter} from './ParamsProvider';
 import {motion} from 'framer-motion'
 import { useNavigate} from 'react-router-dom';
 import Versus from './Versus';

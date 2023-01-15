@@ -10,7 +10,7 @@ import io from "socket.io-client";
 import GestureRecog from './GestureRecog';
 import { useState , useEffect, useRef, useContext } from 'react';
 import Meter from './Meter';
-import { WordCounter } from './ParamsProvider';
+import { WordCounter , NegWordCounter} from './ParamsProvider';
 import {motion} from 'framer-motion'
 import { useNavigate} from 'react-router-dom';
 import Versus from './Versus';
@@ -21,6 +21,7 @@ let notifMsg = '試合頑張ってね！'
 
 // 応援ワードが聞こえた際、一時的にtrueに。右上緑色通知のアニメーションが発火
 let wordHeard = false
+let negWordHeard = false
 
 // サーバとの通信設定。.envはlocalと本番でURL切り替わる。
 const socket = io.connect(`${process.env.REACT_APP_SOCKET_URL}`)
@@ -39,7 +40,7 @@ export const Notification = () => (
       backgroundColor: '#03bc44', borderRadius: 15,
     }}
     animate={
-      wordHeard ?
+      negWordHeard ?
       { 
         x: [window.innerWidth * 1, 
           window.innerWidth * 0,
@@ -66,13 +67,11 @@ function Support() {
   // 諸々の定義ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
   const [myIndex, setMyIndex] = useState(0) // 自分の盛り上がり指数
-  const [geneIndex, setGeneIndex] = useState(0) // 全体の盛り上がり指数  
-  const [totalIndex, setTotalIndex] = useState('0') // 応援累積得点  
-  const [timeRemain, setTimeRemain] = useState('開始前')
   const navigate = useNavigate()
 
   // wordCount系のパラメータをcontextから読み込む
   const { wordCount, setWordCount } = useContext(WordCounter)
+  const { negWordCount, setNegWordCount } = useContext(NegWordCounter)
 
   // 初回レンダリング時に声援認識をしてしまうのを防ぐためのuseRef
   const renderFlgRef = useRef(false)
@@ -116,7 +115,7 @@ function Support() {
     }else{
       renderFlgRef.current = true
     }
-  },[wordCount])
+  },[negWordCount])
 
 
   // サーバにデータ送信ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
