@@ -5,6 +5,7 @@ import { WordCounter } from './ParamsProvider';
 
 const VoiceRecog = () => {
     const { wordCount, setWordCount } = useContext(WordCounter)
+    const { negWordCount, setNegWordCount } = useContext(WordCounter)
 
     const {
       transcript,
@@ -20,9 +21,23 @@ const VoiceRecog = () => {
     counts = [...counts,( transcript.match( /いけ/g ) || [] ).length ]
     counts = [...counts,( transcript.match( /池/g ) || [] ).length ]
     counts = [...counts,( transcript.match( /イケ/g ) || [] ).length ]
+    counts = [...counts,( transcript.match( /入れろ/g ) || [] ).length ]
+    counts = [...counts,( transcript.match( /いれろ/g ) || [] ).length ]
+    counts = [...counts,( transcript.match( /いいぞ/g ) || [] ).length ]
   
-    
     setWordCount(counts.reduce((sum, element) => sum + element, 0))
+
+
+    var negCounts = []
+    negCounts = [...negCounts,( transcript.match( /はずせ/g ) || [] ).length ]
+    negCounts = [...negCounts,( transcript.match( /外せ/g ) || [] ).length ]
+    negCounts = [...negCounts,( transcript.match( /外れろ/g ) || [] ).length ]
+    negCounts = [...negCounts,( transcript.match( /やーい/g ) || [] ).length ]
+    negCounts = [...negCounts,( transcript.match( /動け/g ) || [] ).length ]
+    negCounts = [...negCounts,( transcript.match( /入れるな/g ) || [] ).length ]
+    negCounts = [...negCounts,( transcript.match( /よけろ/g ) || [] ).length ]
+    negCounts = [...negCounts,( transcript.match( /いいぞ/g ) || [] ).length ]
+    setNegWordCount()
 
     // useEffect(() =>{
     //   updateIndex(50)
