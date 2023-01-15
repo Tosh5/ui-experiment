@@ -192,7 +192,7 @@ function Support() {
         </div>
 
         <Versus />
-        <Notification />
+        
 
         
         
@@ -211,7 +211,8 @@ function Support() {
         </div>
 
         <div className="opponent bottom_block">
-          <p className="bold">敵のヤジ</p>
+          <p className="bold">メッセージ</p>
+          <Notification />
         </div>
       </div>
       

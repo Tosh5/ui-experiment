@@ -28,6 +28,20 @@ const Versus = () => {
     const [timeRemain, setTimeRemain] = useState('開始前')
     const navigate = useNavigate()  // ページ遷移用
 
+    // サーバにデータ送信ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+ 
+    const sendmyindex = async () =>{
+        await socket.emit('receive_params') 
+    }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+        sendmyindex()
+        }, 200);
+        return () => clearInterval(interval);
+        // アンマウント時にsetIntervalを解除してくれる
+    }, []);
+
     // サーバからデータを受信した場合ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     useEffect(() => {
 
@@ -68,13 +82,12 @@ const Versus = () => {
         <div className="general top_block">
             <div className="current_aveIndex">
             <p className="bold">総合評価</p>
-            {/* 瞬間の盛り上がり度 */}
             <Meter index={posiIndex} score = {posiScore}/>
+            <Meter index={negIndex} score = {negScore}/>
             </div>
             
             <div className="accumulated_aveIndex">
             <p className="bold">累積総合評価</p>
-            {/* 全体の盛り上がり度 */}
             <p className='totalIndex'>{posiScore}</p>
             実際に AveGauge を入れてみて、<br></br>サイズを調整したい。
             </div>

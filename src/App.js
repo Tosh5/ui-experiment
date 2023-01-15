@@ -5,6 +5,7 @@ import Support from './Support'
 import Top from './Top'
 import Booing from './Booing';
 import Admin from './Admin';
+import Booing2 from './Booing2';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/support" element={<Support />} />
         <Route path="/booing" element={<Booing />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/booing2" element={<Booing2 />} />
       </Routes>
     </div>
   )

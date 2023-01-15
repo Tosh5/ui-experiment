@@ -126,6 +126,7 @@ function Booing() {
   // asyncはナシでも動くが、僅かにasyncアリの方がサーバへの転送が早い気がする
   const sendmyindex = async (index) =>{
     await socket.emit("send_myNegIndex" , index)
+    socket.emit('receive_params') 
   }
   
 //   const sendStart = async (signal) =>{
@@ -143,6 +144,11 @@ function Booing() {
     return () => clearInterval(interval);
     // アンマウント時にsetIntervalを解除してくれる
   }, []);
+
+//   useEffect(() =>{
+//     socket.emit('receive_params')
+//   },[])
+
 
 
   // サーバからデータを受信した場合ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -171,6 +177,11 @@ function Booing() {
     
 
     return () => {
+        socket.off('neg_index');
+        socket.off('neg_score');
+        socket.off('posi_index');
+        socket.off('posi_score');
+
       socket.off('gene_index');
       socket.off('total_index');
       socket.off('time_remain');
@@ -206,13 +217,13 @@ function Booing() {
           <div className="current_aveIndex">
             <p className="bold">総合評価</p>
             {/* 瞬間の盛り上がり度 */}
-            <Meter index={geneIndex} score = {totalIndex}/>
+            <Meter index={negIndex} score = {negScore}/>
           </div>
           
           <div className="accumulated_aveIndex">
             <p className="bold">累積総合評価</p>
             {/* 全体の盛り上がり度 */}
-            <p className='totalIndex'>{totalIndex}</p>
+            <p className='totalIndex'>{negIndex}</p>
             実際に AveGauge を入れてみて、<br></br>サイズを調整したい。
           </div>
           {/* <Notification /> */}
