@@ -1,3 +1,5 @@
+// import './css/admin2.css';
+
 // 通信関係
 import io from "socket.io-client";
 
@@ -13,7 +15,7 @@ import { Link, NavLink, useNavigate} from 'react-router-dom';
 // サーバとの通信設定。.envはlocalと本番でURL切り替わる。
 const socket = io.connect(`${process.env.REACT_APP_SOCKET_URL}`)
 
-const Versus = () => {
+const VersusAdmin = () => {
 
     const [posiIndex, setPosiIndex] = useState(0)
     const [posiScore, setPosiScore] = useState(0)
@@ -78,7 +80,7 @@ const Versus = () => {
 
   return (
     <div>
-        <div className="general top_block">
+        <div className="general adminGeneral top_block">
             <div className="score_board red" >
             <p className="bold red_text" onClick={() => navigate('/support')}>応援側</p>
             <Meter index={posiIndex} score = {posiScore}/>
@@ -120,4 +122,4 @@ const Versus = () => {
   )
 }
 
-export default Versus
+export default VersusAdmin

@@ -1,7 +1,9 @@
 // CSS関係
-import './css/wireframe.css';
-import './css/menu.css';
-import './css/general.css';
+// import './css/wireframe.css';
+// import './css/menu.css';
+// import './css/general.css';
+import './css/admin.css';
+
 
 // 通信関係
 import io from "socket.io-client";
@@ -14,6 +16,7 @@ import Meter from './Meter';
 import {motion, useAnimation} from 'framer-motion'
 import { BrowserRouter, Route, Switch, Link, useNavigate, unstable_HistoryRouter} from 'react-router-dom';
 import Versus from './Versus';
+import VersusAdmin from './VersusAdmin';
 
 
 // 右上に緑色で現れる通知文
@@ -131,70 +134,11 @@ function Admin() {
   
   // 画面表示ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
   return (
-    <div className="App">
+    <div className="Admin">
       
       <div className="top">
-        {/* <div className="menu top_block">
-            <p>残り時間</p>
-          <div className="timer">
-            {timeRemain}
-          </div>
-          <div className="participants">
-            <p className='bold'>参加者数</p>
-            <p className='small'>攻撃側：</p>            
-            <p className='small'>防御側：</p>
-          </div>
-
-          <button onClick={() =>{sendStart()}}>ゲーム開始</button>
-
-          <div className="mode_selector">
-            <p className='current_mode'>応援モード</p>
-            <button onClick={resetParams}>サーバをリセット</button>
-          </div>
-        </div> */}
-
-        <Versus />
-
-{/* 
-
-        <div className="general top_block">
-        
-          <div className="current_aveIndex">
-            <p className="bold">総合評価dayo</p>
-            <Meter index={geneIndex} score = {totalIndex}/>
-          </div>
-          
-          <div className="accumulated_aveIndex">
-            <p className="bold">累積総合評価</p>
-            <p className='totalIndex'>{totalIndex}</p>
-            実際に AveGauge を入れてみて、<br></br>サイズを調整したい。
-          </div>
-          <div className="messages">
-            <p className="bold">メッセージ</p>
-            <Notification />
-          </div>
-        </div> */}
-
-        
+        <VersusAdmin />
       </div>
-{/* 
-      <div className="bottom ">
-        <div className="my_info bottom_block">
-          <div className="my_left_info">
-            <p className="bold">あなたの応援</p>
-            <GestureRecog updateIndex = {updateIndex} />
-          </div>
-          <div className="my_right_info">
-            <p>応援メータ</p>
-            <Meter index={myIndex} score = {myIndex} />
-          </div>
-        </div>
-
-        <div className="opponent bottom_block">
-          <p className="bold">敵のヤジ</p>
-        </div>
-      </div> */}
-      <h1>管理メニュー</h1>
 
       <button onClick={() =>{sendStart()}}>ゲーム開始</button>
       <button onClick={resetParams}>サーバをリセット</button>

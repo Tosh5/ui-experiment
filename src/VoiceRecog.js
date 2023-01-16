@@ -14,6 +14,10 @@ const VoiceRecog = () => {
       interimTranscript,
       browserSupportsSpeechRecognition
     } = useSpeechRecognition();
+
+    console.log(transcript)
+
+    console.log('speech recong in progress')
   
     var counts = []
     counts = [...counts,( transcript.match( /頑張れ/g ) || [] ).length ]

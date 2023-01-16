@@ -1,6 +1,6 @@
 import React from 'react'
 import './css/top.css'
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Guide = () => {
   const navigate = useNavigate()
@@ -20,8 +20,7 @@ const Guide = () => {
       <br></br>
       <h2>ブーイングするには？</h2>
       <p>トップ画面にて「ヤジを飛ばす」ボタンを選択してください</p>
-      <p>ヤジは、「外せ！」「外れろ！」「やーい」「動け！」「入れるな！」「よけろ！」「いいぞ！」「ぶー！」「下手くそ〜w」に反応します。</p>
-
+      <p>ヤジは、「外せ！」「外れろ！」「やーい」「動け！」「入れるな！」「よけろ！」「いいぞ！」「ぶー！」「下手くそ!」に反応します。</p>
 
       <button className='guide_button' style={{backgroundColor: '#555555'}} onClick={() => navigate('/')}>戻る</button>
     </div>

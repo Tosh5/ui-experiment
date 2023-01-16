@@ -20,9 +20,9 @@ const App = () => {
         <Route path="/guide" element={<Guide />} />
 
         <Route path="/booing" element={<Booing />} />
-        <Route path="/admin" element={<Admin />} />
+        {/* <Route path="/admin" element={<Admin />} /> */}
         <Route path="/booing2" element={<Booing2 />} />
-        <Route path="/neg" element={<Neg />} />
+        {/* <Route path="/neg" element={<Neg />} /> */}
       </Routes>
     </div>
   )
