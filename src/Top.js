@@ -8,7 +8,7 @@ const Top = () => {
 
   return (
     <div className='top-container'>
-      <p>※ https://cheer-app3.onrender.com/ のサーバが閉じていると、サービスを利用できません。</p>
+      
         <h1>玉入れ合戦</h1>
         <h3>あなたの応援が勝利を決める！</h3>
         <div className="selector">

@@ -21,6 +21,8 @@ const Guide = () => {
       <h2>ブーイングするには？</h2>
       <p>トップ画面にて「ヤジを飛ばす」ボタンを選択してください</p>
       <p>ヤジは、「外せ！」「外れろ！」「やーい」「動け！」「入れるな！」「よけろ！」「いいぞ！」「ぶー！」「下手くそ!」に反応します。</p>
+      <br></br>
+      <p>※ https://cheer-app3.onrender.com/ のサーバが閉じていると、サービスを利用できません。</p>
 
       <button className='guide_button' style={{backgroundColor: '#555555'}} onClick={() => navigate('/')}>戻る</button>
     </div>
