@@ -121,10 +121,6 @@ function Neg() {
     await socket.emit("send_myNegIndex" , index)
   }
   
-  const sendStart = async (signal) =>{
-    await socket.emit("send_start" , signal)
-  }
-  
   useEffect(() => {
     myIndexRef.current = myIndex
   },[myIndex])

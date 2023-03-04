@@ -9,10 +9,8 @@ import './css/admin.css';
 import io from "socket.io-client";
 
 // モジュールの読み込み
-// import GestureRecog from './GestureRecog';
 import { useState, useEffect, useRef, useContext } from 'react';
 import Meter from './Meter';
-// import { WordCounter } from './ParamsProvider';
 import {motion, useAnimation} from 'framer-motion'
 import { BrowserRouter, Route, Switch, Link, useNavigate, unstable_HistoryRouter} from 'react-router-dom';
 import Versus from './Versus';
@@ -73,42 +71,15 @@ function Admin() {
   const [timeRemain, setTimeRemain] = useState('開始前')
   const navigate = useNavigate()
 
-  const resetParams = () =>{
-    socket.emit('reset_params')
-  }
-
-  
-
-
-  
-
-  // 声援を認識しmyIndexを更新ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-
-
-
   // サーバにデータ送信ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
- 
-  // asyncはナシでも動くが、僅かにasyncアリの方がサーバへの転送が早い気がする
-//   const sendmyindex = async (index) =>{
-//     await socket.emit("send_myindex" , 'support',  index)
-//   }
-  
+
   const sendStart = async (signal) =>{
     await socket.emit("send_start" , signal)
   }
-  
-//   useEffect(() => {
-//     myIndexRef.current = myIndex
-//   },[myIndex])
 
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       sendmyindex(myIndexRef.current)
-//     }, 200);
-//     return () => clearInterval(interval);
-//     // アンマウント時にsetIntervalを解除してくれる
-//   }, []);
-
+  const resetParams = () =>{
+    socket.emit('reset_params')
+  }
 
   // サーバからデータを受信した場合ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
   useEffect(() => {

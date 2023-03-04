@@ -10,6 +10,8 @@ import { WordCounter } from './ParamsProvider';
 import {motion} from 'framer-motion'
 import { Link, NavLink, useNavigate} from 'react-router-dom';
 
+import './css/versus.css'
+
 // サーバとの通信設定。.envはlocalと本番でURL切り替わる。
 const socket = io.connect(`${process.env.REACT_APP_SOCKET_URL}`)
 
@@ -19,6 +21,9 @@ const Versus = () => {
     const [posiScore, setPosiScore] = useState(0)
     const [negIndex, setNegIndex] = useState(0)
     const [negScore, setNegScore] = useState(0)
+    const [speed, setSpeed] = useState('-')
+    // indexは、リアルタイムな応援盛り上がり指数（index）。ゲージの周りのバーで表示。
+    // scoreは、indexが積分されたもの。累積盛り上がり指数。ゲージの中央にアラビア数字で表示。
 
     const [timeRemain, setTimeRemain] = useState('2:00')
     const navigate = useNavigate()  // ページ遷移用
@@ -86,14 +91,12 @@ const Versus = () => {
 
             <div className="accumulated_aveIndex">
             <h1 className="title_top">サポーター対決</h1>
-            <br></br>
-            <h1>VS</h1>
-            <br></br>
+            <p>かご速度</p>
+            <h1 className="speed">{speed}</h1>
             <p>残り時間</p>
             <div className="timer">
                 {timeRemain}
             </div>
-            <br></br>
             <p onClick={() => navigate('/')} 
                 style={{
                         cursor: 'pointer',
@@ -103,7 +106,7 @@ const Versus = () => {
                         marginLeft: 'auto',
                         marginRight: 'auto',
                         borderRadius: '7px'
-                        }}>Home</p>
+                        }}>◀︎ Home</p>
             
             
             </div>

@@ -102,7 +102,7 @@ function Support() {
     // }
   }
 
-  // 声援を認識しmyIndexを更新ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+  // 声援を認識しwordHeardとmyIndexを更新ーーーーーーーーーーーーーーーーーーーーーーーーーー
   useEffect(() =>{
     if(renderFlgRef.current) {
       const cheerNotify = async () =>{
@@ -127,10 +127,6 @@ function Support() {
   // asyncはナシでも動くが、僅かにasyncアリの方がサーバへの転送が早い気がする
   const sendmyindex = async (index) =>{
     await socket.emit("send_myPosiIndex" , index)
-  }
-  
-  const sendStart = async (signal) =>{
-    await socket.emit("send_start" , signal)
   }
   
   useEffect(() => {
@@ -170,11 +166,8 @@ function Support() {
             <Notification />
           </div>
         </div>
-
-        
       </div>
       
-
     </div>
   );
 }

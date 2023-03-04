@@ -7,19 +7,20 @@ import { drawCanvas } from './drawCanvas';
 
 const scale = 30; // 取得した手の座標を何倍に拡大して激しさを取得するか？
 
+// 動作認識を記述。
 const GestureRecog = (props) => {
 
 	const webcamRef = useRef(null)
 	const canvasRef = useRef(null)
 	const resultsRef = useRef()
 
-	let prev_x = 0;
+	let prev_x = 0;    // 前フレームにおける、手のx座標
 	let prev_y = 0;
-	let pos_x = 0;
-	let pos_y = 0;
-	let dif_x = 0;
+	let pos_x = 0;    // 今のフレームにおける、手のx座標
+	let pos_y = 0; 
+	let dif_x = 0;    // 前フレームと今のフレームの手のx座標の変位
 	let dif_y = 0;
-	let distance = 0;
+	let distance = 0;    // 前フレームと今のフレームの手の座標の変位
 
 	/**
 	 * 検出結果（フレーム毎に呼び出される）
@@ -62,11 +63,10 @@ const GestureRecog = (props) => {
 		}
 	}, [onResults])
 
-
+	// 手の座標位置を取得し、変数に代入
 	const Location = () =>{
 		const results = resultsRef.current  
 		
-
 		try{
 			pos_x = results.multiHandLandmarks[0][20].x * scale
 			pos_y = results.multiHandLandmarks[0][20].y * scale
@@ -83,24 +83,10 @@ const GestureRecog = (props) => {
 		}catch(error){
 			props.updateIndex(0)
 		}
-		// try{
-		// 	gap_record.splice(0,1);
-		// 	gap_record.push(props.voiceAdd)
-		// 	console.log(`voiceAdd id: ${props.voiceAdd}`)
-		// }catch(error){
-		// 	gap_record.splice(0,1);
-		// 	gap_record.push(0);
-		// }
-
-
-		// setMyIndex()
-        // useIndex2(sumArray(gap_record))
-		// console.log(sumArray(gap_record))
-		
 	}
 
+// 応援やブーイング画面にて、左下に表示される自分の映像を出すUI部分を以下に記述。
   return (
-    // <div>GestureRecog</div>
     <div className={styles.container}>
 			{/* capture */}
 			<Webcam
@@ -115,15 +101,10 @@ const GestureRecog = (props) => {
 			{/* draw */}
 			<canvas ref={canvasRef} className={styles.canvas} width={1280} height={720} />
 			{/* output */}
-            {/* <h1>aa</h1> */}
+            {/* <h1>write something</h1> */}
 
 			<div className={styles.buttonContainer}>
-				{/* <button className={styles.button} onClick={OutputData}>
-					Output Data
-				</button> */}
-                {/* <h1>画像解析中</h1> */}
-				{/* <h3>{String(handC)}</h3>
-				<h3 className='index2'>{String(index2)}</h3> */}
+                {/* <h1>write something</h1> */}
 			</div>
 		</div>
   )
@@ -131,9 +112,7 @@ const GestureRecog = (props) => {
 
 export default GestureRecog
 
-// ==============================================
-// styles
-
+// 応援やブーイング画面にて、左下に表示される自分の映像に適用するCSS。
 const styles = {
 	container: css`
 		position: relative;

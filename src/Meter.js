@@ -3,6 +3,9 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import MeterProvider from './MeterProvider';
 
+// Meterコンポーネントは、indexとscoreという二つのpropsを受け付けています。
+// → indexは、リアルタイムな応援盛り上がり指数（index）。ゲージの周りのバーで表示。
+// → scoreは、indexが積分されたもの。累積盛り上がり指数。ゲージの中央にアラビア数字で表示。
 
 const Meter = (props) => {
 

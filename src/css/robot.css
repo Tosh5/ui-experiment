@@ -1,0 +1,28 @@
+#center{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+div.guideDiv{
+    font-size: medium;
+    display: inline-block;
+    align-items: left;
+    text-align: left !important;
+    border-radius: 10px;
+    padding: 15px;
+    border: 5px;
+    background-color: rgb(214, 214, 214);
+    width: 65vw;
+    margin: 10px;
+
+}
+
+h2{
+    text-align: left;
+    margin: 6px;
+}
+
+p{
+    text-align: left;
+    margin: 3px;
+}
