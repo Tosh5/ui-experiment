@@ -7,19 +7,19 @@ import io from "socket.io-client";
 // サーバとの通信設定。.envはlocalと本番でURL切り替わる。
 const socket = io.connect(`${process.env.REACT_APP_SOCKET_URL}`)
 
-let speed3 = 5;
+let allowMove = true
 
 function Robot() {
     const [posiIndex, setPosiIndex] = useState(0)
     const [negIndex, setNegIndex] = useState(0)
-    const [speed2, setSpeed2] = useState(5)
+    const [speed , setSpeed] = useState(4)
 
-    const speedRef = useRef(0)
+    const speedRef = useRef(1)
 
     useEffect(() => {
-        speedRef.current = speed2
-      },[speed2])
-    
+        speedRef.current = speed
+    },[speed])
+
 
     // サーバにデータを要求ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     //   (クライアントからサーバに receive_params を送ることで、サーバから最新paramsを受信できる)
@@ -36,10 +36,6 @@ function Robot() {
         // アンマウント時にsetIntervalを解除してくれる
     }, []);
 
-    // const sendSpeed = async () =>{
-    //     await socket.emit('speed', speed)
-    // }
-
     // サーバからデータを受信ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     useEffect(() => {
 
@@ -51,141 +47,78 @@ function Robot() {
             setNegIndex(negIndex)
         })
 
+        socket.on('speed', function(speed){
+            setSpeed(speed)
+        })
+
         return () => {
             socket.off('posi_index');
             socket.off('neg_index');
+            socket.off('speed');
         };
     }, []);
-
-    let speed = (negIndex - posiIndex)/20 + 5 // ブーイングと応援のバランス
-    if(speed >= 10){
-        speed = 10
-    }
-    if(speed <= 0){
-        speed = 0
-    }
-    speed = Math.floor(speed)
-
-
-
 
     let stopFlag = false;
     
 
-    let speed3 = speed2
+    async function startSerial(allowMove) {
+        // if(allowMove){
+
+            try {
+                console.log("INFO: 接続が確立しました");
+                stopFlag = false;
+                const port = await navigator.serial.requestPort();
+                await port.open({ baudRate: 115200 });
+                while (port.readable) {
+                    const reader = port.readable.getReader();
+                    const encoder = new TextEncoder();
+
+                    let inputValue = 'req'
+                    
+                    try {
+                        while (!stopFlag) {
+                            const { value, done } = await reader.read();
+                            if (done) {
+                                console.log("INFO: 読込モード終了");
+                                break;
+                            }
+                            if(allowMove){
+                                if(inputValue = 'req'){
+                                    let uint8Array = new Uint8Array([speedRef.current]);
+                                    const writer = port.writable.getWriter();
+                                    await writer.write(encoder.encode(uint8Array));
+                                    writer.releaseLock();
+                                }
     
+                                //👇生データはバイナリなので、ユニコード文字へデコード
+                                inputValue = await new TextDecoder().decode(value);
+                                console.log(inputValue);
+                                
+                            }else{
+                                await port.close
+                                console.log('port Closed')
+                            }
 
-    async function startSerial() {
-        try {
-            console.log("INFO: 接続が確立しました");
-            stopFlag = false;
-            const port = await navigator.serial.requestPort();
-            await port.open({ baudRate: 115200 });
-            while (port.readable) {
-                const reader = port.readable.getReader();
-
-                const encoder = new TextEncoder();
-                // const writer = port.writable.getWriter();
-
-                // let uint8Array = new Uint8Array([speed]);
-                // console.log(uint8Array)
-                // await writer.write(encoder.encode(uint8Array));
-                // writer.releaseLock();
-
-
-                let inputValue = 'sendMeNextSpeed'
-                
-                try {
-                    while (!stopFlag) {
-                        const { value, done } = await reader.read();
-                        if (done) {
-                            console.log("INFO: 読込モード終了");
-                            break;
                         }
-
-                        if(inputValue = 'sendMeNextSpeed'){
-                            console.log('↓↓↓speedRef.current')
-                            console.log(speedRef.current)
-                            let uint8Array = new Uint8Array([speedRef.current]);
-                            // console.log('今から出力')
-                            // console.log(uint8Array)
-                            const writer = port.writable.getWriter();
-                            // console.log('start writing now')
-                            await writer.write(encoder.encode(uint8Array));
-                            await writer.write(encoder.encode(uint8Array));
-                            
-
-                            // console.log('wrote just now')
-                            writer.releaseLock();
-                        }
-
-                        inputValue = 'changed'
-
-                        //👇生データはバイナリなので、ユニコード文字へデコード
-                        inputValue = await new TextDecoder().decode(value);
-                        console.log(inputValue);
-                        console.log('↑ 受信した値')
-
-                        // let uint8Array = new Uint8Array([speed]);
-                        // console.log(uint8Array)
-                        // await writer.write(encoder.encode(uint8Array));
-                        // writer.releaseLock();
-
-
+                    } catch (error) {
+                        console.log("ERROR: 読み出し失敗");
+                        console.log(error);
+                    } finally {
+                        reader.releaseLock();
+                        await port.close();
+                        console.log("INFO: 接続を切断しました");
                     }
-                } catch (error) {
-                    console.log("ERROR: 読み出し失敗");
-                    console.log(error);
-                } finally {
-                    reader.releaseLock();
-                    await port.close();
-                    console.log("INFO: 接続を切断しました");
                 }
+            } catch (error) {
+                console.log("ERRORR: ポートが開けません");
+                console.log(error);
             }
-        } catch (error) {
-            console.log("ERRORR: ポートが開けません");
-            console.log(error);
-        }
+        // }
     }
     function stopSerial() {
-        // port.close();
+        allowMove = false
         stopFlag = true;
-    }
-
-
-    // async function sendThree(){
-    //     stopFlag = false;
-    //     const encoder = new TextEncoder();
-
-    //     const port = await navigator.serial.requestPort();
-    //     // await port.open({ baudRate: 115200 });
-
-    //     const writer = port.writable.getWriter();
-    //     let uint8Array = new Uint8Array([3]);
-    //     console.log('今から3を出力')
-    //     console.log(uint8Array)
-    //     await writer.write(encoder.encode(uint8Array));
-    //     writer.releaseLock();
-    // }
-
-
-
-    async function sendText(){
-        // console.log('sendText実行中')
-
-        // stopFlag = false;
-        // // const port = await navigator.serial.requestPort();
-        // // await port.open({ baudRate: 115200 });
-        // console.log('書き込み用のポートが準備OK')
-        
-        // const encoder = new TextEncoder();
-        // console.log('TextEncoderをセットしたよ')
-        // const writer = port.writable.getWriter();
-        // console.log('3を送るよ！')
-        // // await writer.write(encoder.encode("3")); // LEDが50回点灯してしまう
-        // await writer.write(encoder.encode(3)); // 51回点灯してしまう  Base45 で2が変換されると51になる。
-        // // await writer.write(3); 
-        // writer.releaseLock();
+        // allowMove = false
     }
 
   return (
@@ -206,39 +139,22 @@ function Robot() {
 
         <br></br>
         <button onClick={startSerial}>▶︎ 接 続 ◀︎</button>
-        <button onClick={stopSerial}>切断</button>
+        <button onClick={stopSerial}>ロボットとの接続portを切断</button>
         <br></br>
-        <button 
-            onClick={() => setSpeed2(speed2 - 1)}
-        >. - .</button>     
-        {speed2}    
-        <button 
-            onClick={() => setSpeed2(speed2 + 1)}
-        >. + .</button>
-        <input></input>
-        {/* <button onClick={sendThree}>3を送ります</button> */}
-        <br></br>
-
         <div className="guideDiv">
             <h2>各種パラメータ(useState)</h2>
+            <p>speed</p>
+            <p>{speed}</p>
             <p>negIndex</p>
             <p>{negIndex}</p>
             <p>posiIndex</p>
             <p>{posiIndex}</p>
-            <p>speed</p>
-            <p>{speed}</p>
+
 
         </div>
-
-
 
     </div>
   )
 }
 
 export default Robot
-
-
-
-// Robot.js:58 Uncaught (in promise) DOMException: Failed to execute 'open' on 'SerialPort': The port is already open.
-//     at sendText (http://localhost:3000/static/js/bundle.js:2164:16)
