@@ -21,6 +21,7 @@ const VersusAdmin = () => {
     const [posiScore, setPosiScore] = useState(0)
     const [negIndex, setNegIndex] = useState(0)
     const [negScore, setNegScore] = useState(0)
+    const [speed, setSpeed] = useState('-')
 
     const [timeRemain, setTimeRemain] = useState('2:00')
     const navigate = useNavigate()  // ページ遷移用
@@ -67,12 +68,17 @@ const VersusAdmin = () => {
         setTimeRemain(timeRemain)
         })
 
+        socket.on('speed', function(speed){
+            setSpeed(speed)
+        })
+
         return () => {
             socket.off('posi_index');
             socket.off('posi_score');
             socket.off('neg_index');
             socket.off('neg_score');
             socket.off('time_remain');
+            socket.off('speed');
         };
     }, []);
 
@@ -80,23 +86,21 @@ const VersusAdmin = () => {
 
   return (
     <div>
-        <div className="general adminGeneral top_block">
+        <div className="general top_block">
             <div className="score_board red" >
-            <p className="bold red_text" onClick={() => navigate('/support')}>応援側</p>
+            <p className="bold red_text center" onClick={() => navigate('/support')}>応援側</p>
             <Meter index={posiIndex} score = {posiScore}/>
             </div>
 
             <div className="accumulated_aveIndex">
             <h1 className="title_top">サポーター対決</h1>
-            <br></br>
-            <h1>VS</h1>
-            <br></br>
-            <p>残り時間</p>
+            <p className="center">かご速度</p>
+            <h1 className="speed">{speed}</h1>
+            <p className="center">残り時間</p>
             <div className="timer">
                 {timeRemain}
             </div>
-            <br></br>
-            <p onClick={() => navigate('/')} 
+            {/* <p onClick={() => navigate('/')} 
                 style={{
                         cursor: 'pointer',
                         backgroundColor: 'gray',
@@ -105,18 +109,20 @@ const VersusAdmin = () => {
                         marginLeft: 'auto',
                         marginRight: 'auto',
                         borderRadius: '7px'
-                        }}>Home</p>
+                        }}>◀︎ Home</p> */}
             
             
             </div>
             
             <div className="score_board blue">
-            <p className="bold blue_text" onClick={() => navigate('/neg')} >妨害側</p>
+            <p className="bold blue_text center" onClick={() => navigate('/neg')} >妨害側</p>
             <Meter index={negIndex} score = {negScore}/>
             </div>
 
-           
         </div>
+        {/* <div className="general adminGeneral top_block">
+         
+        </div> */}
   </div>
 
   )

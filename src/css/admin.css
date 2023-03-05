@@ -1,4 +1,13 @@
 .Admin{
-    background-color: black;
+    background-color: #000000;
+    /* background-color: #108908; */
+    /* background-color: #892a08; */
     height: 100vh;
+}
+
+.adminButton{
+    padding: 10px;
+    margin: 10px;
+    font-size: x-large;
+    color: white;
 }

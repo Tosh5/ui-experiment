@@ -26,3 +26,20 @@ p{
     text-align: left;
     margin: 3px;
 }
+
+#startButton{
+    font-size: x-large;
+    background-color: rgb(11, 161, 11);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 5px 100px;
+    font-weight: 600;
+}
+
+#resetButton{
+    background-color: rgb(201, 9, 9);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+
+}

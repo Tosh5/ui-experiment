@@ -162,7 +162,8 @@ function Neg() {
 
         
       </div>
-      
+
+      <button className='guide_button' style={{backgroundColor: '#555555'}} onClick={() => navigate('/')}>戻る</button>      
 
     </div>
   );

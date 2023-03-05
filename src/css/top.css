@@ -2,6 +2,11 @@
     text-align: center;
 } */
 
+
+.center{
+    text-align: center;
+}
+
 .top-container{
     text-align: center;
     align-items: center;
@@ -37,6 +42,7 @@
     font-size: 50px;
     /* margin-top: 10px; */
     color: aliceblue;
+    /* color: #777540; */
     margin: 10px;
 }
 
@@ -50,6 +56,21 @@
     margin: 10px;
     position: absolute;
     left: 5px;
+    bottom: 5px;
+    margin: 10px;
+}
+
+.robot_button{
+    padding: 5px 25px;
+    border-radius: 10px;
+    font-size: 20px;
+    /* margin-top: 10px; */
+    color: aliceblue;
+
+    margin: 10px;
+    position: absolute;
+    /* left: 150px; */
+    right: 150px;
     bottom: 5px;
     margin: 10px;
 }

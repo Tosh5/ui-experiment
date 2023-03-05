@@ -157,7 +157,7 @@ function Support() {
           </div>
           <div className="my_right_info">
             <br></br>
-            <p>応援メータ</p>
+            <p className='center'>応援メータ</p>
             <Meter index={myIndex} score = {myIndex} />
           </div>
           <div className="message bottom_block_margin">
@@ -167,6 +167,8 @@ function Support() {
           </div>
         </div>
       </div>
+
+      <button className='guide_button' style={{backgroundColor: '#555555'}} onClick={() => navigate('/')}>戻る</button>
       
     </div>
   );

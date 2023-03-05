@@ -79,6 +79,7 @@ function Admin() {
 
   const resetParams = () =>{
     socket.emit('reset_params')
+    alert('リセット信号を送りました。\n OKボタンを押した後、残り時間が「-」になれば正常にサーバをリセットできています。\n\n【そうならない場合】\n・残り時間が「終了です」になる場合は、もう一度押してください。\n・カウントダウンが続く場合は、カウントダウンが終了するまで待ってもう一度押してください。')
   }
 
   // サーバからデータを受信した場合ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -111,9 +112,11 @@ function Admin() {
         <VersusAdmin />
       </div>
 
-      <button onClick={() =>{sendStart()}}>ゲーム開始</button>
-      <button onClick={resetParams}>サーバをリセット</button>
+      <button className='adminButton' style={{backgroundColor: '#108908'}} onClick={() =>{sendStart()}}>ゲーム開始</button>
+      <button className='adminButton' style={{backgroundColor: '#892a08'}} onClick={resetParams}>サーバをリセット</button>
       
+
+      <button className='guide_button' style={{backgroundColor: '#555555'}} onClick={() => navigate('/')}>戻る</button>
 
     </div>
   );
